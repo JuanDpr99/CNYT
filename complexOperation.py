@@ -62,7 +62,34 @@ def mostrar(n):
         print(a)
     elif b < 0:
         print(a,'-',str(abs(b))+'i')
+
+
 ##==========================SEGUNDA_PARTE==================================
+
+def generateEmptyMatrix(n,m):
+    '''Genera una matriz de tamaño nxm con numeros complejos de ceros'''
+    colum = []
+    for i in range(n):
+        fil = []
+        for j in range(m):
+            fil.append([0,0])
+        colum.append(fil)
+    return (colum)
+#generateEmptyMatrix(3,3)
+
+def generaridentidad(n):
+    """Genera una matriz identidad(compuesta de numeros complejos) de tamaño n"""
+    ma = []
+    for i in range(n):
+        l = []
+        for j in range(n):
+            if i == j:
+                l.append([1,0])
+            else:
+                l.append([0,0])
+        ma.append(l)
+    return ma
+        
 def sumaVectoresComplejos(a,b):
     """Metodo q suma dos vectores complejos; a y b de tipo array"""
     if(len(a) == len(b)):
@@ -76,10 +103,10 @@ def sumaVectoresComplejos(a,b):
         print("Los vectores deben tener la misma longitud")
 #sumaVectoresComplejos([[3,2],[4,1]],[[1,3],[2,-5]]);
 
-def inversoAditivo_de_complejo(a):
+def inversoAditivo(a):
     """Retorna el inverso aditico de un numero complejo; a= complejo tipo Array"""
     res = [ a[0]*-1,a[1]*-1 ]
-    print( res )
+    return( res )
 #inversoAditivo_de_complejo([3,2])    
         
 def real_x_complejo(n,a):
@@ -106,15 +133,128 @@ def sumaMatricesComplejas(matrizA,matrizB):
             c = suma_i(matrizA[i][j], matrizB[i][j])
             fila.append(c)
         matRes.append( fila )
-    print(matRes)
-##sumaMatricesComplejas([ [[3,2],[4,1]],[[1,3],[2,5]] ], [ [[3,2],[4,1]],[[1,3],[2,5]] ])
-    
-   
+    return(matRes)
+#sumaMatricesComplejas([ [[3,2],[4,1]],[[1,3],[2,5]] ], [ [[3,2],[4,1]],[[1,3],[2,5]] ])
+
+def restaMatriz(matriz1,matriz2):
+    """Recibe dos matrices o vectores y los resta, estos deben tener
+    el mismo tamaño m x n y deben contener arreglos"""
+    res = generateEmptyMatrix(len(matriz1),len(matriz1[0]))
+    for i in range(len(matriz1)):
+        for j in range(len(matriz1[0])):
+            res[i][j] = resta_i(matriz1[i][j],matriz2[i][j])
+    return res
+
+def inversoAditivoMatriz(matriz):
+    """Recibe una matriz o un vector y halla el inverso aditiva de este(a)"""
+    for i in range(len(matriz)):
+        for j in range(len(matriz[0])):
+            matriz[i][j] = inversoAditivo(matriz[i][j])
+    return ( matriz)
+##inversoAditivoMatriz([[[3,4],[1,2]],[[3,6],[7,6]]])
+
+def escalarXmatrizCompl(e,matriz):
+    '''Retorna una matriz multiplicada por un escalar; e= int; matriz= array[array]'''
+    for i in range(len(matriz)):
+        for j in range(len(matriz[0])):
+            matriz[i][j] = real_x_complejo(e,matriz[i][j])
+    return(matriz)
+#escalarXmatrizCompl(2,[[[3,4],[1,2]],[[3,6],[7,6]]])
+
+def transpuestaMatriz(matriz):
+    '''Retorna la transpuesta de una matriz ingresada'''
+    ret = generateEmptyMatrix(len(matriz),len(matriz[0]))
+    for i in range(len(matriz)):
+        for j in range(len(matriz[0])):
+            ret[i][j] = matriz[j][i]
+    return (ret)
+#transpuestaMatriz([[[3,4],[1,2]],[[3,6],[7,6]]])
+
+def conjugadaMatriz(matriz):
+    '''Retorna la matriz conjugada de una ingresada'''
+    for i in range(len(matriz)):
+        for j in range(len(matriz[0])):
+            matriz[i][j] = conjugado(matriz[i][j])
+
+    return (matriz)
+#conjugadaMatriz([[[3,-4],[1,2]],[[3,6],[-7,-6]],[[8,-9],[9,2]]])
 
 
+def adjuntaMatriz(matriz):
+    '''Halla la adjunta de una matriz calculando la conjugada y luego la transpuesta'''
+    ret = transpuestaMatriz(conjugadaMatriz(matriz))
+    return ( ret )
+#adjuntaMatriz([[[3,4],[1,2]],[[3,6],[7,6]]])
 
 
+def multiplicarMatrices(matrizA,matrizB):
+    if len(matrizA[0]) == len(matrizB):
+        ret = generateEmptyMatrix(len(matrizA), len(matrizB[0]))
+        for i in range(len(ret)):
+            for j in range(len(ret[0])):
+                ret[i][j] = [0,0]
+                for k in range(len(matriz2)):
+                    ret[i][j] = suma_i(ret[i][j], producto_i(matrizA[i][k],matrizB[k][j]))
+        if len(ret) == 1:
+            return ret[i][j]
+        return ret
+    else:
+        return 0
 
+def productinterno(vector1,vector2):
+    """Halla el producto interno de dos vectores compuesto de complejos"""
+    daga = adjuntaMatriz(vector1)
+    res = multiplicarMatrices(daga,vector2)
+    if res[1] == 0:
+        return res[0]
+    return res
+
+def normavector(vector1):
+    """Halla la norma de un vector compuesto de complejos"""
+    ret = productinterno(vector1,vector1)
+    ret = ret ** 0.5
+    return ret
+
+def distanciavectores(vector1,vector2):
+    """Halla la distancia entre dos vectores compuesto de complejos"""
+    resta = restaMatriz(vector1,vector2)
+    res = normavector(resta)
+    return res
+
+def truncar(matriz):
+    """Trunca los valores reales en la matriz, sean de la parte real o de la
+    parte imaginaria"""
+    for i in range(len(matriz)):
+        for j in range(len(matriz[0])):
+            for k in range(2):
+                matriz[i][j][k] = math.ceil(matriz[i][j][k])
+    return matriz
+
+def matrizUnitaria(matriz):
+    """Comprueba si una matriz es unitaria"""
+    daga = adjuntaMatriz(matriz)
+    res = multiplicarMatrices(matriz,daga)
+    res = truncar(res)
+    identidad = generaridentidad(len(matriz))
+    if res == identidad:
+        return True
+    return False
+
+def matrizhermitiana(matriz):
+    """Comprueba si una matriz es hermitiana"""    
+    if adjuntaMatriz(matriz) == matriz:
+        return True
+    return False
+
+def productotensor(matriz1,matriz2):
+    """Halla el producto tensor de dos matrices compuestas de complejos"""
+    res = generateEmptyMatrix(len(matriz1)*len(matriz2),len(matriz1[0])*len(matriz2[0]))
+    m = len(matriz2)
+    n = len(matriz2[0])
+    for i in range(len(res)):
+        for j in range(len(res[0])):
+            res[i][j] = producto_i(matriz1[i//m][j//n],matriz2[i%m][j%n])
+    return res
 
 
 
