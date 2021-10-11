@@ -81,7 +81,7 @@ OutPut:
         print(state,"->",probParticleInLine(state,ket))
  ```
  
- ###Test
+ ### Test
  - Input:
    * Dadas un lista de posiciones ps = [0,4,6,7]
    * Dado el Ket = [2+i,-1+2i, i, 1, 3-i, 2, -i, -2+i, 1-3i, -i ]
@@ -127,7 +127,7 @@ def varianza(deltha,stateKet):
     ret = valorEsperado(delthaInt,stateKet)
     return(ret)
  ```
- ###Test
+ ### Test
  - Input:
    * Dada la matriz hermitania O = [[0,-i],[i,0]]
    * Dado el ket = [1/sqrt(2), (1/sqrt(2))i]
@@ -135,4 +135,5 @@ def varianza(deltha,stateKet):
    * La media o valor esperado es:  0.0
    * La varianza es:  0.9999999999999998
 # Otros problemas
-
+# Referencias 
+- Ejercicion tomados del texto guia "Quantum Computing for Computer Scientists"
