@@ -135,5 +135,5 @@ def varianza(deltha,stateKet):
    * La media o valor esperado es:  0.0
    * La varianza es:  0.9999999999999998
 # Otros problemas
-# Referencias 
+# Referencias 📝
 - Ejercicion tomados del texto guia "Quantum Computing for Computer Scientists"
