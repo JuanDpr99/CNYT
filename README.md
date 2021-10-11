@@ -3,7 +3,7 @@ Este proyecto presenta una simulación de algunos ejercicios sobre teoría cuant
 * SIMULACIÓN PRIMER SISTEMA CUÁNTICO DESCRITO EN LA SECCIÓN 4 
 * RETOS DE PROGRAMACIÓN DEL CAPÍTULO 4
 * OTROS PROBLEMAS
-# Simulación primer sistema cuantico 
+# Simulación primer sistema cuantico  ⚙️
 El sistema consiste en una partícula confinada a un conjunto discreto de posiciones en una línea. El simulador debe permitir especificar el número de posiciones y un vector ket de estado asignando las amplitudes.
 
 + 1. El sistema debe calcular la probabilidad de encontrarlo en una posición en particular.
